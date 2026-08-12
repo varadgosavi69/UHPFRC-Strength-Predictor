@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +12,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
-DATA_PATH = Path("data/raw/uhpfrc_mix_design_master.csv")
+DEFAULT_DATA_PATH = Path("data/raw/uhpfrc_mix_design_master.csv")
+DATA_PATH = Path(os.getenv("UHPFRC_DATA_PATH", DEFAULT_DATA_PATH))
 MODEL_DIR = Path("models")
 METRICS_PATH = MODEL_DIR / "metrics.json"
 TARGET_COLUMN = "compressive_strength_MPa"
