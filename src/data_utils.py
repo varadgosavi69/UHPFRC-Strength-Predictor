@@ -17,6 +17,7 @@ DATA_PATH = Path(os.getenv("UHPFRC_DATA_PATH", DEFAULT_DATA_PATH))
 MODEL_DIR = Path("models")
 METRICS_PATH = MODEL_DIR / "metrics.json"
 TARGET_COLUMN = "compressive_strength_MPa"
+METADATA_COLUMNS = ["source_paper"]
 KNOWN_CATEGORICAL_COLUMNS = ["fiber_type", "specimen_type", "scm_type"]
 RANDOM_STATE = 42
 
@@ -70,7 +71,10 @@ def load_clean_split_data():
         raise ValueError(f"Missing required target column: {TARGET_COLUMN}")
 
     data = data.dropna(subset=[TARGET_COLUMN])
-    x = data.drop(columns=[TARGET_COLUMN])
+    columns_to_drop = [TARGET_COLUMN] + [
+        column for column in METADATA_COLUMNS if column in data.columns
+    ]
+    x = data.drop(columns=columns_to_drop)
     y = data[TARGET_COLUMN]
 
     x_train, x_test, y_train, y_test = train_test_split(
