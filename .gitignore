@@ -3,3 +3,8 @@ __pycache__/
 .env
 models/*
 !models/.gitkeep
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
