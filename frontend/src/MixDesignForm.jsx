@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import axios from 'axios';
 import './MixDesignForm.css';
+
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 
 const INITIAL_STATE = {
   cement: '',
@@ -116,6 +119,9 @@ const SPECIMEN_TYPES = ['cylinder', 'cube', 'prism'];
 
 export default function MixDesignForm() {
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [prediction, setPrediction] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -124,6 +130,45 @@ export default function MixDesignForm() {
 
   function handleReset() {
     setFormData(INITIAL_STATE);
+    setPrediction(null);
+    setError(null);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setPrediction(null);
+    setError(null);
+
+    // Coerce numeric string fields to numbers before sending
+    const NUMERIC_KEYS = [
+      'cement', 'silica_fume', 'fly_ash', 'sand', 'coarse_aggregate',
+      'water', 'superplasticizer', 'fiber_content_percent',
+      'water_binder_ratio', 'curing_age_days', 'curing_temp_celsius',
+    ];
+    const payload = { ...formData };
+    for (const key of NUMERIC_KEYS) {
+      payload[key] = payload[key] === '' ? null : Number(payload[key]);
+    }
+
+    try {
+      const { data } = await axios.post(`${API_URL}/predict`, payload, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      setPrediction({
+        strength: data.predicted_strength_MPa,
+        shap: data.shap_contributions ?? null,
+      });
+    } catch (err) {
+      const message =
+        err.response?.data?.detail ??
+        err.response?.data?.message ??
+        err.message ??
+        'Unknown error';
+      setError(String(message));
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -135,7 +180,7 @@ export default function MixDesignForm() {
         </p>
       </header>
 
-      <form className="mdf-form" onSubmit={(e) => e.preventDefault()} noValidate>
+      <form className="mdf-form" onSubmit={handleSubmit} noValidate>
         {/* ── Binder Materials ────────────────────────────── */}
         <fieldset className="mdf-fieldset">
           <legend className="mdf-legend">Binder Materials</legend>
@@ -318,14 +363,63 @@ export default function MixDesignForm() {
 
         {/* ── Actions ─────────────────────────────────────── */}
         <div className="mdf-actions">
-          <button type="button" id="btn-reset" className="mdf-btn mdf-btn--secondary" onClick={handleReset}>
+          <button
+            type="button"
+            id="btn-reset"
+            className="mdf-btn mdf-btn--secondary"
+            onClick={handleReset}
+            disabled={loading}
+          >
             Reset
           </button>
-          <button type="submit" id="btn-predict" className="mdf-btn mdf-btn--primary" disabled>
-            Predict Strength
+          <button
+            type="submit"
+            id="btn-predict"
+            className="mdf-btn mdf-btn--primary"
+            disabled={loading}
+          >
+            {loading ? 'Predicting…' : 'Predict Strength'}
           </button>
         </div>
       </form>
+
+      {/* ── Error banner ────────────────────────────────── */}
+      {error && (
+        <div id="result-error" className="mdf-result mdf-result--error" role="alert">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
+
+      {/* ── Result card ─────────────────────────────────── */}
+      {prediction && (
+        <div id="result-card" className="mdf-result mdf-result--success">
+          <p className="mdf-result-label">Predicted Compressive Strength</p>
+          <p className="mdf-result-value">
+            {Number(prediction.strength).toFixed(2)}
+            <span className="mdf-result-unit"> MPa</span>
+          </p>
+
+          {prediction.shap && Object.keys(prediction.shap).length > 0 && (
+            <details className="mdf-shap">
+              <summary className="mdf-shap-summary">SHAP Contributions</summary>
+              <ul className="mdf-shap-list">
+                {Object.entries(prediction.shap)
+                  .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
+                  .map(([feature, value]) => (
+                    <li key={feature} className="mdf-shap-item">
+                      <span className="mdf-shap-feature">{feature}</span>
+                      <span
+                        className={`mdf-shap-val ${Number(value) >= 0 ? 'mdf-shap-pos' : 'mdf-shap-neg'}`}
+                      >
+                        {Number(value) >= 0 ? '+' : ''}{Number(value).toFixed(3)}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            </details>
+          )}
+        </div>
+      )}
     </div>
   );
 }
