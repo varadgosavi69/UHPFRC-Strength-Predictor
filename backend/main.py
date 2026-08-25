@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 import joblib
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = PROJECT_ROOT / "src"
 MODEL_PATH = PROJECT_ROOT / "models" / "best_model.pkl"
+MODEL_LOAD_ERROR: str | None = None
 
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
@@ -54,8 +55,20 @@ app.add_middleware(
 
 @app.on_event("startup")
 def load_model_on_startup() -> None:
-    joblib.load(MODEL_PATH)
-    get_model_context()
+    global MODEL_LOAD_ERROR
+
+    if not MODEL_PATH.exists():
+        MODEL_LOAD_ERROR = (
+            f"Prediction model is unavailable: {MODEL_PATH.name} was not found. "
+            "Train a model before calling /predict."
+        )
+        return
+
+    try:
+        joblib.load(MODEL_PATH)
+        get_model_context()
+    except Exception as error:
+        MODEL_LOAD_ERROR = f"Prediction model could not be loaded: {error}"
 
 
 @app.get("/health")
@@ -65,6 +78,9 @@ def health() -> dict[str, str]:
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict(mix_design: MixDesignInput) -> PredictionResponse:
+    if MODEL_LOAD_ERROR is not None:
+        raise HTTPException(status_code=503, detail=MODEL_LOAD_ERROR)
+
     explanation = explain_single_prediction(mix_design.dict())
     return PredictionResponse(
         predicted_strength_MPa=explanation["predicted_compressive_strength_MPa"],
