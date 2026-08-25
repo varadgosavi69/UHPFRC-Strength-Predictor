@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GroupShuffleSplit
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
@@ -65,25 +65,48 @@ def build_preprocessor(features: pd.DataFrame) -> ColumnTransformer:
     return ColumnTransformer(transformers=transformers)
 
 
+def source_aware_train_test_split(
+    data: pd.DataFrame,
+    source_column: str = "source_paper",
+    test_size: float = 0.2,
+    random_state: int = RANDOM_STATE,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Split complete source-paper groups so papers cannot leak across partitions."""
+    if source_column not in data.columns:
+        raise ValueError(f"Missing required source column: {source_column}")
+    if data.empty:
+        raise ValueError("At least one data row is required for a source-aware split")
+
+    sources = data[source_column]
+    if sources.isna().any() or (sources.astype(str).str.strip() == "").any():
+        raise ValueError(f"{source_column} must be non-empty for every data row")
+    if sources.nunique() < 2:
+        raise ValueError("At least two source papers are required for a source-aware split")
+
+    splitter = GroupShuffleSplit(
+        n_splits=1,
+        test_size=test_size,
+        random_state=random_state,
+    )
+    train_indices, test_indices = next(splitter.split(data, groups=sources))
+    return data.iloc[train_indices].copy(), data.iloc[test_indices].copy()
+
+
 def load_clean_split_data():
     data = pd.read_csv(DATA_PATH)
     if TARGET_COLUMN not in data.columns:
         raise ValueError(f"Missing required target column: {TARGET_COLUMN}")
 
     data = data.dropna(subset=[TARGET_COLUMN])
+    train_data, test_data = source_aware_train_test_split(data)
     columns_to_drop = [TARGET_COLUMN] + [
         column for column in METADATA_COLUMNS if column in data.columns
     ]
-    x = data.drop(columns=columns_to_drop)
-    y = data[TARGET_COLUMN]
-
-    x_train, x_test, y_train, y_test = train_test_split(
-        x,
-        y,
-        test_size=0.2,
-        random_state=RANDOM_STATE,
-    )
-    return x_train, x_test, y_train, y_test, list(x.columns)
+    x_train = train_data.drop(columns=columns_to_drop)
+    x_test = test_data.drop(columns=columns_to_drop)
+    y_train = train_data[TARGET_COLUMN]
+    y_test = test_data[TARGET_COLUMN]
+    return x_train, x_test, y_train, y_test, list(x_train.columns)
 
 
 def evaluate_model(model: Pipeline, x_test: pd.DataFrame, y_test: pd.Series) -> dict:
