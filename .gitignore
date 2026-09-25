@@ -3,6 +3,7 @@ __pycache__/
 .env
 models/*
 !models/metrics_real_dataset.json
+!models/baseline_model.pkl
 !models/.gitkeep
 
 # Frontend
