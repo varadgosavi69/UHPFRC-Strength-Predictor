@@ -1,0 +1,300 @@
+{
+  "description": "Response Surface Methodology (RSM) quadratic model results",
+  "model_type": "Second-order polynomial (quadratic)",
+  "dataset": {
+    "n_rows": 142,
+    "factors": [
+      "rca_replacement_percent",
+      "pp_fiber_percent",
+      "fly_ash",
+      "silica_fume",
+      "ggbs",
+      "water_cement_ratio",
+      "curing_age_days"
+    ],
+    "target": "compressive_strength_MPa"
+  },
+  "performance": {
+    "R2": 0.9737,
+    "RMSE": 3.6745,
+    "note": "Training set performance (no test set split for RSM)"
+  },
+  "anova": {
+    "overall_model": {
+      "f_statistic": 112.2064,
+      "p_value": 0.0,
+      "df_model": 35,
+      "df_residual": 106,
+      "significance": "SIGNIFICANT (p < 0.05)"
+    },
+    "term_significance_summary": {
+      "total_terms": 35,
+      "significant_terms": 12,
+      "nonsignificant_terms": 23,
+      "alpha": 0.05,
+      "breakdown": {
+        "linear": "5/7",
+        "interaction": "5/21",
+        "quadratic": "2/7"
+      }
+    }
+  },
+  "equation": {
+    "structured": {
+      "intercept": 52.774,
+      "linear_terms": [
+        {
+          "name": "rca_replacement_percent",
+          "coefficient": -2.826,
+          "p_value": 5.022140938670816e-07,
+          "significant": true
+        },
+        {
+          "name": "pp_fiber_percent",
+          "coefficient": 0.778,
+          "p_value": 0.14095956114052477,
+          "significant": false
+        },
+        {
+          "name": "fly_ash",
+          "coefficient": 1.7865,
+          "p_value": 0.022597574255276642,
+          "significant": true
+        },
+        {
+          "name": "silica_fume",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "ggbs",
+          "coefficient": -1.732,
+          "p_value": 0.001398751318868241,
+          "significant": true
+        },
+        {
+          "name": "water_cement_ratio",
+          "coefficient": -6.4705,
+          "p_value": 0.0,
+          "significant": true
+        },
+        {
+          "name": "curing_age_days",
+          "coefficient": 9.4527,
+          "p_value": 0.0,
+          "significant": true
+        }
+      ],
+      "interaction_terms": [
+        {
+          "name": "rca_replacement_percent pp_fiber_percent",
+          "coefficient": 0.2548,
+          "p_value": 0.20501367317975383,
+          "significant": false
+        },
+        {
+          "name": "rca_replacement_percent fly_ash",
+          "coefficient": -0.1256,
+          "p_value": 0.6119681905330432,
+          "significant": false
+        },
+        {
+          "name": "rca_replacement_percent silica_fume",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "rca_replacement_percent ggbs",
+          "coefficient": -1.3535,
+          "p_value": 0.0054177680602067735,
+          "significant": true
+        },
+        {
+          "name": "rca_replacement_percent water_cement_ratio",
+          "coefficient": 4.6005,
+          "p_value": 9.636735853746359e-14,
+          "significant": true
+        },
+        {
+          "name": "rca_replacement_percent curing_age_days",
+          "coefficient": -0.2941,
+          "p_value": 0.5252933266244222,
+          "significant": false
+        },
+        {
+          "name": "pp_fiber_percent fly_ash",
+          "coefficient": 0.7903,
+          "p_value": 0.06329586200849824,
+          "significant": false
+        },
+        {
+          "name": "pp_fiber_percent silica_fume",
+          "coefficient": -0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "pp_fiber_percent ggbs",
+          "coefficient": -0.1272,
+          "p_value": 0.5257021634622263,
+          "significant": false
+        },
+        {
+          "name": "pp_fiber_percent water_cement_ratio",
+          "coefficient": 0.9435,
+          "p_value": 0.0011148307770281196,
+          "significant": true
+        },
+        {
+          "name": "pp_fiber_percent curing_age_days",
+          "coefficient": 0.0327,
+          "p_value": 0.9369492664939809,
+          "significant": false
+        },
+        {
+          "name": "fly_ash silica_fume",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "fly_ash ggbs",
+          "coefficient": -0.7276,
+          "p_value": 0.003950434438259487,
+          "significant": true
+        },
+        {
+          "name": "fly_ash water_cement_ratio",
+          "coefficient": 0.5395,
+          "p_value": 0.13863312946768902,
+          "significant": false
+        },
+        {
+          "name": "fly_ash curing_age_days",
+          "coefficient": 0.8927,
+          "p_value": 0.37564192666952434,
+          "significant": false
+        },
+        {
+          "name": "silica_fume ggbs",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "silica_fume water_cement_ratio",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "silica_fume curing_age_days",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "ggbs water_cement_ratio",
+          "coefficient": 5.176,
+          "p_value": 4.440892098500626e-16,
+          "significant": true
+        },
+        {
+          "name": "ggbs curing_age_days",
+          "coefficient": 0.2043,
+          "p_value": 0.6589497805215374,
+          "significant": false
+        },
+        {
+          "name": "water_cement_ratio curing_age_days",
+          "coefficient": 0.5464,
+          "p_value": 0.615294963788179,
+          "significant": false
+        }
+      ],
+      "quadratic_terms": [
+        {
+          "name": "rca_replacement_percent^2",
+          "coefficient": -0.9434,
+          "p_value": 0.10070879016793222,
+          "significant": false
+        },
+        {
+          "name": "pp_fiber_percent^2",
+          "coefficient": -0.1158,
+          "p_value": 0.7836874013917647,
+          "significant": false
+        },
+        {
+          "name": "fly_ash^2",
+          "coefficient": 2.2638,
+          "p_value": 6.705200445855652e-05,
+          "significant": true
+        },
+        {
+          "name": "silica_fume^2",
+          "coefficient": 0.0,
+          "p_value": NaN,
+          "significant": false
+        },
+        {
+          "name": "ggbs^2",
+          "coefficient": 0.0064,
+          "p_value": 0.9910266933546916,
+          "significant": false
+        },
+        {
+          "name": "water_cement_ratio^2",
+          "coefficient": 1.9971,
+          "p_value": 0.07986960898962536,
+          "significant": false
+        },
+        {
+          "name": "curing_age_days^2",
+          "coefficient": -5.0529,
+          "p_value": 2.220446049250313e-16,
+          "significant": true
+        }
+      ]
+    },
+    "text": "CS = 52.7740\n  - 2.8260 \u00d7 rca_replacement_percent\n  + 0.7780 \u00d7 pp_fiber_percent\n  + 1.7865 \u00d7 fly_ash\n  + 0.0000 \u00d7 silica_fume\n  - 1.7320 \u00d7 ggbs\n  - 6.4705 \u00d7 water_cement_ratio\n  + 9.4527 \u00d7 curing_age_days\n  + 0.2548 \u00d7 rca_replacement_percent pp_fiber_percent\n  - 0.1256 \u00d7 rca_replacement_percent fly_ash\n  + 0.0000 \u00d7 rca_replacement_percent silica_fume\n  - 1.3535 \u00d7 rca_replacement_percent ggbs\n  + 4.6005 \u00d7 rca_replacement_percent water_cement_ratio\n  - 0.2941 \u00d7 rca_replacement_percent curing_age_days\n  + 0.7903 \u00d7 pp_fiber_percent fly_ash\n  - 0.0000 \u00d7 pp_fiber_percent silica_fume\n  - 0.1272 \u00d7 pp_fiber_percent ggbs\n  + 0.9435 \u00d7 pp_fiber_percent water_cement_ratio\n  + 0.0327 \u00d7 pp_fiber_percent curing_age_days\n  + 0.0000 \u00d7 fly_ash silica_fume\n  - 0.7276 \u00d7 fly_ash ggbs\n  + 0.5395 \u00d7 fly_ash water_cement_ratio\n  + 0.8927 \u00d7 fly_ash curing_age_days\n  + 0.0000 \u00d7 silica_fume ggbs\n  + 0.0000 \u00d7 silica_fume water_cement_ratio\n  + 0.0000 \u00d7 silica_fume curing_age_days\n  + 5.1760 \u00d7 ggbs water_cement_ratio\n  + 0.2043 \u00d7 ggbs curing_age_days\n  + 0.5464 \u00d7 water_cement_ratio curing_age_days\n  - 0.9434 \u00d7 rca_replacement_percent^2\n  - 0.1158 \u00d7 pp_fiber_percent^2\n  + 2.2638 \u00d7 fly_ash^2\n  + 0.0000 \u00d7 silica_fume^2\n  + 0.0064 \u00d7 ggbs^2\n  + 1.9971 \u00d7 water_cement_ratio^2\n  - 5.0529 \u00d7 curing_age_days^2"
+  },
+  "significant_effects": {
+    "description": "Terms with p < 0.05 (statistically significant predictors)",
+    "linear": [
+      "rca_replacement_percent",
+      "fly_ash",
+      "ggbs",
+      "water_cement_ratio",
+      "curing_age_days"
+    ],
+    "interaction": [
+      "rca_replacement_percent ggbs",
+      "rca_replacement_percent water_cement_ratio",
+      "pp_fiber_percent water_cement_ratio",
+      "fly_ash ggbs",
+      "ggbs water_cement_ratio"
+    ],
+    "quadratic": [
+      "fly_ash^2",
+      "curing_age_days^2"
+    ]
+  },
+  "key_findings": [
+    "Overall model is highly significant (F=112.21, p<0.0001) with R\u00b2=0.9737",
+    "Only 34.3% (12/35) of terms are statistically significant, suggesting potential for model simplification",
+    "Most important predictors: curing_age_days (linear + quadratic), water_cement_ratio (linear + 2 interactions), rca_replacement_percent (linear + 2 interactions)",
+    "Strong synergistic interactions exist: RCA \u00d7 water_cement_ratio (+4.60), GGBS \u00d7 water_cement_ratio (+5.18)",
+    "Silica fume has zero coefficient across all terms (insufficient data coverage)",
+    "Curing age shows diminishing returns (negative quadratic term)",
+    "Fly ash exhibits accelerating returns (positive quadratic term)"
+  ],
+  "comparison_to_ml": {
+    "rsm_r2": 0.9737,
+    "random_forest_r2": 0.9933,
+    "xgboost_r2": 0.9929,
+    "note": "RSM achieves 97.37% of variance explained vs. 99.33% for Random Forest. The quadratic polynomial captures most relationships but tree-based models perform slightly better."
+  }
+}
