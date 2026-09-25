@@ -1,0 +1,146 @@
+[
+  {
+    "split": "standard_80_20",
+    "model": "Linear Regression",
+    "R2": 0.949661,
+    "RMSE": 4.7787,
+    "MAE": 4.3704,
+    "N": 29
+  },
+  {
+    "split": "standard_80_20",
+    "model": "Random Forest",
+    "R2": 0.993348,
+    "RMSE": 1.7371,
+    "MAE": 1.3556,
+    "N": 29
+  },
+  {
+    "split": "standard_80_20",
+    "model": "XGBoost",
+    "R2": 0.992881,
+    "RMSE": 1.7971,
+    "MAE": 1.3739,
+    "N": 29
+  },
+  {
+    "split": "standard_80_20",
+    "model": "ANN",
+    "R2": 0.951542,
+    "RMSE": 4.6886,
+    "MAE": 4.3526,
+    "N": 29
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Afroughsabet_2015",
+    "model": "Linear Regression",
+    "R2": -7982843.299129,
+    "RMSE": 29356.2619,
+    "MAE": 29354.8239,
+    "N": 36
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Afroughsabet_2015",
+    "model": "Random Forest",
+    "R2": -21.446853,
+    "RMSE": 49.2266,
+    "MAE": 49.1529,
+    "N": 36
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Afroughsabet_2015",
+    "model": "XGBoost",
+    "R2": -20.551684,
+    "RMSE": 48.235,
+    "MAE": 48.1733,
+    "N": 36
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Afroughsabet_2015",
+    "model": "ANN",
+    "R2": -43.665944,
+    "RMSE": 69.4401,
+    "MAE": 69.0393,
+    "N": 36
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Jaglan_2025",
+    "model": "Linear Regression",
+    "R2": -402586.214659,
+    "RMSE": 5766.1472,
+    "MAE": 5530.3707,
+    "N": 100
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Jaglan_2025",
+    "model": "Random Forest",
+    "R2": -5.724422,
+    "RMSE": 23.5659,
+    "MAE": 23.0684,
+    "N": 100
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Jaglan_2025",
+    "model": "XGBoost",
+    "R2": -1.002673,
+    "RMSE": 12.8606,
+    "MAE": 11.3617,
+    "N": 100
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Jaglan_2025",
+    "model": "ANN",
+    "R2": -0.931237,
+    "RMSE": 12.6291,
+    "MAE": 10.7991,
+    "N": 100
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Kakooei_2011",
+    "model": "Linear Regression",
+    "R2": -193.624042,
+    "RMSE": 101.8024,
+    "MAE": 101.5852,
+    "N": 6,
+    "note": "unreliable (few test rows)"
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Kakooei_2011",
+    "model": "Random Forest",
+    "R2": -3.991533,
+    "RMSE": 16.3033,
+    "MAE": 14.7282,
+    "N": 6,
+    "note": "unreliable (few test rows)"
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Kakooei_2011",
+    "model": "XGBoost",
+    "R2": -3.523822,
+    "RMSE": 15.5207,
+    "MAE": 13.7791,
+    "N": 6,
+    "note": "unreliable (few test rows)"
+  },
+  {
+    "split": "LOPO",
+    "held_out_paper": "Kakooei_2011",
+    "model": "ANN",
+    "R2": -7.523337,
+    "RMSE": 21.3042,
+    "MAE": 20.7377,
+    "N": 6,
+    "note": "unreliable (few test rows)"
+  }
+]
