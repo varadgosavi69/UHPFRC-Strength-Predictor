@@ -1,0 +1,112 @@
+{
+  "description": "Leave-One-Paper-Out (LOPO) cross-validation results",
+  "note": "LOPO measures generalization to unseen source papers. Negative R\u00b2 indicates the model performs worse than predicting the mean of the test set. This is expected when training and test papers cover different concrete systems.",
+  "unreliable_papers": [
+    {
+      "paper": "Kakooei_2011",
+      "n_rows": 6,
+      "reason": "Sample size too small for reliable metrics. Results should not be used for model selection."
+    }
+  ],
+  "results_by_paper": [
+    {
+      "held_out_paper": "Afroughsabet_2015",
+      "n_test_rows": 36,
+      "models": [
+        {
+          "model": "XGBoost",
+          "R2": -20.551684,
+          "RMSE": 48.235,
+          "MAE": 48.1733
+        },
+        {
+          "model": "Random Forest",
+          "R2": -21.446853,
+          "RMSE": 49.2266,
+          "MAE": 49.1529
+        },
+        {
+          "model": "ANN",
+          "R2": -43.665944,
+          "RMSE": 69.4401,
+          "MAE": 69.0393
+        },
+        {
+          "model": "Linear Regression",
+          "R2": -7982843.299129,
+          "RMSE": 29356.2619,
+          "MAE": 29354.8239
+        }
+      ]
+    },
+    {
+      "held_out_paper": "Jaglan_2025",
+      "n_test_rows": 100,
+      "models": [
+        {
+          "model": "ANN",
+          "R2": -0.931237,
+          "RMSE": 12.6291,
+          "MAE": 10.7991
+        },
+        {
+          "model": "XGBoost",
+          "R2": -1.002673,
+          "RMSE": 12.8606,
+          "MAE": 11.3617
+        },
+        {
+          "model": "Random Forest",
+          "R2": -5.724422,
+          "RMSE": 23.5659,
+          "MAE": 23.0684
+        },
+        {
+          "model": "Linear Regression",
+          "R2": -402586.214659,
+          "RMSE": 5766.1472,
+          "MAE": 5530.3707
+        }
+      ]
+    },
+    {
+      "held_out_paper": "Kakooei_2011",
+      "n_test_rows": 6,
+      "models": [
+        {
+          "model": "XGBoost",
+          "R2": -3.523822,
+          "RMSE": 15.5207,
+          "MAE": 13.7791,
+          "note": "unreliable (few test rows)"
+        },
+        {
+          "model": "Random Forest",
+          "R2": -3.991533,
+          "RMSE": 16.3033,
+          "MAE": 14.7282,
+          "note": "unreliable (few test rows)"
+        },
+        {
+          "model": "ANN",
+          "R2": -7.523337,
+          "RMSE": 21.3042,
+          "MAE": 20.7377,
+          "note": "unreliable (few test rows)"
+        },
+        {
+          "model": "Linear Regression",
+          "R2": -193.624042,
+          "RMSE": 101.8024,
+          "MAE": 101.5852,
+          "note": "unreliable (few test rows)"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_papers": 3,
+    "total_test_rows": 142,
+    "interpretation": "All models show poor generalization (negative R\u00b2) when tested on held-out papers, indicating domain shift between papers. The standard 80/20 split (R\u00b2~0.99) measures interpolation; LOPO measures extrapolation."
+  }
+}
