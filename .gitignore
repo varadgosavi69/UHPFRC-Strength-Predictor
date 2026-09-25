@@ -4,6 +4,7 @@ __pycache__/
 models/*
 !models/metrics_real_dataset.json
 !models/baseline_model.pkl
+!models/advanced_model.pkl
 !models/.gitkeep
 
 # Frontend
